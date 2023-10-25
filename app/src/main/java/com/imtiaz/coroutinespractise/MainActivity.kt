@@ -16,6 +16,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
+import kotlin.system.measureTimeMillis
 import kotlin.time.measureTime
 
 class MainActivity : AppCompatActivity() {
@@ -26,10 +27,17 @@ class MainActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
 
-            val time = measureTime {
-                networkCall1()
-                networkCall2()
-                networkCall3()
+            val time = measureTimeMillis {
+
+                 val job = launch {
+                    //Parallel  execution
+                    launch { networkCall1() }
+                   launch { networkCall2() }
+                   launch { networkCall3() }
+                }
+
+                job.join()
+                Log.i(TAG,"network call done:")
             }
 
              Log.i(TAG,"onCreate: time $time")
