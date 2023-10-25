@@ -19,6 +19,24 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
+    }
+
+
+
+
+
+
+}
+
+/*
+* runBlocking
+*
+* class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
         /*some points coroutines Builder
         ** launch
         ** async
@@ -49,6 +67,8 @@ class MainActivity : AppCompatActivity() {
 
 
 }
+*
+* */
 
 
 /*class MainActivity : AppCompatActivity() {
