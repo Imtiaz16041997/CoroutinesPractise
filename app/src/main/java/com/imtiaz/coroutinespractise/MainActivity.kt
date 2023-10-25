@@ -18,6 +18,23 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+
+
+
+    }
+
+
+
+}
+
+/*Dispatcher and context switching
+*
+* class MainActivity : AppCompatActivity() {
     val TAG = "MyRanDomTag"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,7 +79,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-}
+}*/
 
 /*
 * runBlocking
