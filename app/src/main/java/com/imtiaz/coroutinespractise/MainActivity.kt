@@ -29,19 +29,21 @@ class MainActivity : AppCompatActivity() {
 
             val time = measureTimeMillis {
 
-                var s1 = ""
+                /*var s1 = ""
                 var s2 = ""
-                var s3 = ""
+                var s3 = ""*/
 
                  val job = launch {
                     //Parallel  execution
-                    launch { s1 = networkCall1() }
-                   launch { s2 = networkCall2() }
-                   launch { s3 = networkCall3() }
+                     val s1 = async { networkCall1() }
+                     val s2 = async { networkCall2() }
+                     val s3 = async { networkCall3() }
+
+                     Log.i(TAG,"onCreate: ${s1.await()},${s2.await()},${s3.await()}")
                 }
 
                 job.join()
-                Log.i(TAG,"onCreate: $s1,$s2,$s3")
+//                Log.i(TAG,"onCreate: $s1,$s2,$s3")
                 Log.i(TAG,"network call done:")
             }
 
