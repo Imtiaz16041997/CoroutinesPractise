@@ -15,6 +15,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
     val TAG = "MyRanDomTag"
@@ -33,10 +34,12 @@ class MainActivity : AppCompatActivity() {
 
         val btn = findViewById<Button>(R.id.btn)
 
-        lifecycleScope.launch(Dispatchers.Main) {
+        lifecycleScope.launch(Dispatchers.IO) {
             val result = networkCall()
-
-            btn.text = result
+            withContext(Dispatchers.Main){
+                btn.text = result
+            }
+//            btn.text = result
         }
 
         /*Context in Coroutine
