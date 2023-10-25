@@ -8,12 +8,59 @@ import android.widget.Button
 import androidx.activity.viewModels
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        /*some points coroutines Builder
+        ** launch
+        ** async -  The async builder, returns a Deferred<T> object,
+        * allowing you to retrieve a value once the coroutine is complete
+        ** runBlocking
+        *
+        *
+        * */
+
+        lifecycleScope.launch {
+            test2()
+        }
+
+    }
+
+    suspend fun test1(){
+        val job = lifecycleScope.launch {
+            delay(2000)
+            Log.i("test","2 sec")
+
+        }
+        job.join()
+        Log.i("test","test")
+
+    }
+
+    suspend fun test2(){
+        val deffered : Deferred<Int> = lifecycleScope.async {
+            delay(2000)
+            Log.i("test","2 sec")
+            10
+        }
+        val value = deffered.await()
+
+        Log.i("test","test: "+value)
+
+    }
+
+
+}
+
+
+/*    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         /*some points coroutines Builder
@@ -44,8 +91,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-}
-
+}*/
 
 
 
