@@ -9,6 +9,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
@@ -16,15 +17,45 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 class MainActivity : AppCompatActivity() {
+    val TAG = "MyRanDomTag"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        /*Dispatcher
+        * A dispatcher in coroutines is responsible for determining
+        * which thread or thread pool a coroutine will be executed on.
+        * IO - network related operations,db read,write or read/write in any file.
+        * Default - whenever any task needed cpu power like 5k list need to sort
+        * unconfined - thread is not defined.
+        * Main - UI related operations
+        * */
+
+        val btn = findViewById<Button>(R.id.btn)
+
+        lifecycleScope.launch(Dispatchers.Main) {
+            val result = networkCall()
+
+            btn.text = result
+        }
+
+        /*Context in Coroutine
+        * Context = JOB(object) + Dispatchers + coroutine's name - Combination of Job object and Dispatcher and coroutine's name is called context
+        *
+        *
+        *
+        * */
 
     }
 
 
+    private suspend fun networkCall(): String {
+        Log.i(TAG,"networkcall: start")
+        delay(3000)
+        Log.i(TAG,"networkcall: end")
 
+        return "Result"
+    }
 
 
 
