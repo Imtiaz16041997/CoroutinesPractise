@@ -13,13 +13,53 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
-    private val viewModel : MainViewModel by viewModels()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        /*some points coroutines Builder
+        ** launch - launch returns job objects, we can assign it in a variable ,
+        * and this variable can tell my current coroutine job happening or not,
+        * and with the of this variable we can stop our coroutine also.
+        ** async
+        ** runBlocking
+        *
+        *
+        * */
+
+        lifecycleScope.launch {
+            test()
+        }
+
+    }
+
+    suspend fun test(){
+        val job = lifecycleScope.launch {
+            delay(2000)
+            Log.i("test","2 sec")
+
+        }
+        job.join()
+        Log.i("test","test")
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+  /*  private val viewModel : MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        /*Some Points on Scope
+        *//*Some Points on Scope
         * coroutines has 3 scope
         * GlobalScope - **it has some issue,Leaking Coroutines: Coroutines launched with GlobalScope are
         * not tied to the lifecycle of the application,
@@ -32,8 +72,7 @@ class MainActivity : AppCompatActivity() {
         * viewModelScope -
         *
         *
-        * */
-
+        * *//*
 
 
         var btn : Button = findViewById(R.id.btn)
@@ -42,33 +81,31 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
 
-        /*viewModelScope*/
+        *//*viewModelScope*//*
         viewModel.run()
 
 
 
-        /*GlobalScope */
-        /*GlobalScope.launch {
+        *//*GlobalScope *//*
+        *//*GlobalScope.launch {
             while (true){
                 Log.i("One","onCreate: ")
                 delay(1000)
             }
-        }*/
+        }*//*
 
-        /*LifecycleScope*/
-        /*lifecycleScope.launch {
+        *//*LifecycleScope*//*
+        *//*lifecycleScope.launch {
             while (true){
                 Log.i("One","onCreate: ")
                 delay(1000)
             }
-        }*/
-
-
+        }*//*
 
     }
 
 }
-
+*/
 
 
 
