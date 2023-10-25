@@ -16,18 +16,45 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
+import kotlin.time.measureTime
 
 class MainActivity : AppCompatActivity() {
-
+    val TAG = "MyRanDomTag"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        lifecycleScope.launch {
+
+            val time = measureTime {
+                networkCall1()
+                networkCall2()
+                networkCall3()
+            }
+
+             Log.i(TAG,"onCreate: time $time")
+
+
+        }
 
 
 
     }
 
+    suspend fun networkCall1(){
+        delay(1000)
+        Log.i(TAG,"networkCall1: called")
+    }
+
+    suspend fun networkCall2(){
+        delay(3000)
+        Log.i(TAG,"networkCall2: called")
+    }
+
+    suspend fun networkCall3(){
+        delay(2000)
+        Log.i(TAG,"networkCall3 : called")
+    }
 
 
 }
