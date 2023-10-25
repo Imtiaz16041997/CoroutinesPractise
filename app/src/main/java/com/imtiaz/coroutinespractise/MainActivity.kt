@@ -13,8 +13,45 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        /*some points coroutines Builder
+        ** launch
+        ** async
+        ** runBlocking - it only using for unit test cases not in the production mode
+        *
+        *
+        * */
+
+        runBlocking {
+            test2()
+        }
+
+    }
+
+
+
+    suspend fun test2(){
+        val deffered : Deferred<Int> = lifecycleScope.async {
+            delay(2000)
+            Log.i("test","2 sec")
+            10
+        }
+        val value = deffered.await()
+
+        Log.i("test","test: "+value)
+
+    }
+
+
+}
+
+
+/*class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -33,16 +70,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    suspend fun test1(){
-        val job = lifecycleScope.launch {
-            delay(2000)
-            Log.i("test","2 sec")
 
-        }
-        job.join()
-        Log.i("test","test")
-
-    }
 
     suspend fun test2(){
         val deffered : Deferred<Int> = lifecycleScope.async {
@@ -57,7 +85,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-}
+}*/
 
 
 /*    override fun onCreate(savedInstanceState: Bundle?) {
